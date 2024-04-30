@@ -8,6 +8,8 @@ public class BackupStatus {
 	private long total;
 	private long currentProgress;
 	private long currentTotal;
+	private File[] allFiles;
+	private Thread thread;
 
 	void setIsFinished(boolean v){
 		isFinished = v;
@@ -69,5 +71,23 @@ public class BackupStatus {
 
 	public long getCurrentTotal() {
 		return currentTotal;
+	}
+
+	void setAllFiles(File[] v) {
+		assert v != null;
+		allFiles = v;
+	}
+
+	public File[] getAllFiles() {
+		return allFiles;
+	}
+
+	void setThread(Thread v) {
+		assert v != null;
+		thread = v;
+	}
+
+	Thread getThread() {
+		return thread;
 	}
 }
