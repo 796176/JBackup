@@ -46,7 +46,7 @@ public class BackupStatus {
 	}
 
 	public long getProgress() {
-		return progress;
+		return progress + currentProgress;
 	}
 
 	void setTotal(long v){
