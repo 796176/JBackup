@@ -1,14 +1,17 @@
 package jbackup.backend;
 
+import java.io.File;
+import java.util.LinkedList;
+
 public class BackupStatus {
-	private boolean isFinished;
-	private String[] finishedFiles;
-	private String currentFile;
-	private long progress;
-	private long total;
-	private long currentProgress;
-	private long currentTotal;
-	private File[] allFiles;
+	private boolean isFinished = false;
+	private LinkedList<File> finishedFiles = new LinkedList<>();
+	private File currentFile;
+	private long progress = 0;
+	private long total = 0;
+	private long currentProgress = 0;
+	private long currentTotal = 0;
+	private LinkedList<File> allFiles = new LinkedList<>();
 	private Thread thread;
 
 	void setIsFinished(boolean v){
@@ -19,21 +22,21 @@ public class BackupStatus {
 		return isFinished;
 	}
 
-	void setFinishedFiles(String[] v){
+	void setFinishedFiles(LinkedList<File> v){
 		assert v != null;
 		finishedFiles = v;
 	}
 
-	public String[] getFinishedFiles() {
+	public LinkedList<File> getFinishedFiles() {
 		return finishedFiles;
 	}
 
-	void setCurrentFile(String v){
+	void setCurrentFile(File v){
 		assert v != null;
 		currentFile = v;
 	}
 
-	public String getCurrentFile() {
+	public File getCurrentFile() {
 		return currentFile;
 	}
 
@@ -73,12 +76,12 @@ public class BackupStatus {
 		return currentTotal;
 	}
 
-	void setAllFiles(File[] v) {
+	void setAllFiles(LinkedList<File> v) {
 		assert v != null;
 		allFiles = v;
 	}
 
-	public File[] getAllFiles() {
+	public LinkedList<File> getAllFiles() {
 		return allFiles;
 	}
 
