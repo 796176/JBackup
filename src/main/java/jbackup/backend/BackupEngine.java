@@ -11,8 +11,6 @@ public class BackupEngine implements BackupEngineInterface {
 	private File src = null;
 	private boolean interrupted = false;
 
-	private Exception exception;
-
 	@Override
 	public void createBackup(File source, File destination, File[] exceptions) throws IOException {
 		assert source != null && dst != null && exceptions != null;
@@ -118,7 +116,7 @@ public class BackupEngine implements BackupEngineInterface {
 					status.setCurrentTotal(0);
 				}
 			} catch (Exception e) {
-				exception = e;
+				status.setException(e);
 			}
 
 			status.setIsFinished(true);
