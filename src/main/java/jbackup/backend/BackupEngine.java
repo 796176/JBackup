@@ -111,5 +111,14 @@ public class BackupEngine implements BackupEngineInterface, Runnable {
 	}
 
 	private void setAttributes(Path currentPath, Path currentPathDst) throws IOException{
+		Set<String> attributeKeys =
+			Set.of("owner", "group", "lastAccessTime", "lastModifiedTime", "creationTime", "permissions");
+		for (String key: attributeKeys) {
+			Files.setAttribute(
+				currentPathDst,
+				"posix:" + key,
+				Files.getAttribute(currentPath, "posix:" + key)
+			);
+		}
 	}
 }
