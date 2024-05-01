@@ -5,7 +5,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.*;
 import java.util.*;
 
-public class BackupEngine implements BackupEngineInterface, Runnable {
+public class BackupEngine implements BackupEngineInterface {
 	private BackupStatus status = new BackupStatus();
 	private File dst = null;
 	private File src = null;
@@ -43,7 +43,8 @@ public class BackupEngine implements BackupEngineInterface, Runnable {
 		};
 		Files.walkFileTree(sourcePath, fileVisitor);
 
-		Thread thread = new Thread(this);
+		BackgroundProcess backgroundProcess = new BackgroundProcess();
+		Thread thread = new Thread(backgroundProcess);
 		thread.start();
 		status.setThread(thread);
 	}
@@ -56,50 +57,6 @@ public class BackupEngine implements BackupEngineInterface, Runnable {
 	@Override
 	public BackupStatus getStatus() {
 		return status;
-	}
-
-	@Override
-	public void run() {
-		try {
-			Iterator<File> files = status.getAllFiles().iterator();
-			while (!interrupted && files.hasNext()) {
-				File currentFile = files.next();
-				status.setCurrentFile(currentFile);
-				File currentFileDst = new File(dst, currentFile.getAbsolutePath().replace(src.getParent(), ""));
-
-				if (currentFile.isDirectory()) {
-					currentFileDst.mkdir();
-					setAttributes(currentFile.toPath(), currentFileDst.toPath());
-					status.getFinishedFiles().add(currentFile);
-					continue;
-				}
-
-				int bsize = 1024 * 8;
-				status.setCurrentTotal(Files.size(currentFile.toPath()));
-				try (
-					BufferedInputStream bis = new BufferedInputStream(new FileInputStream(currentFile), bsize);
-					BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(currentFileDst), bsize)
-				) {
-					byte[] buffer = new byte[1024];
-					int byteRead;
-					do {
-						if (interrupted) return;
-						byteRead = bis.readNBytes(buffer, 0, buffer.length);
-						status.setCurrentProgress(status.getCurrentProgress() + byteRead);
-						bos.write(buffer, 0, byteRead);
-					} while (byteRead != 0);
-				}
-				setAttributes(currentFile.toPath(), currentFileDst.toPath());
-				status.getFinishedFiles().add(currentFile);
-				status.setCurrentProgress(0);
-				status.setProgress(status.getProgress() + status.getCurrentTotal());
-				status.setCurrentTotal(0);
-			}
-		} catch (Exception e) {
-			exception = e;
-		}
-
-		status.setIsFinished(true);
 	}
 
 	@Override
@@ -119,6 +76,52 @@ public class BackupEngine implements BackupEngineInterface, Runnable {
 				"posix:" + key,
 				Files.getAttribute(currentPath, "posix:" + key)
 			);
+		}
+	}
+
+	private class BackgroundProcess implements Runnable {
+		@Override
+		public void run() {
+			try {
+				Iterator<File> files = status.getAllFiles().iterator();
+				while (!interrupted && files.hasNext()) {
+					File currentFile = files.next();
+					status.setCurrentFile(currentFile);
+					File currentFileDst = new File(dst, currentFile.getAbsolutePath().replace(src.getParent(), ""));
+
+					if (currentFile.isDirectory()) {
+						currentFileDst.mkdir();
+						setAttributes(currentFile.toPath(), currentFileDst.toPath());
+						status.getFinishedFiles().add(currentFile);
+						continue;
+					}
+
+					int bsize = 1024 * 8;
+					status.setCurrentTotal(Files.size(currentFile.toPath()));
+					try (
+						BufferedInputStream bis = new BufferedInputStream(new FileInputStream(currentFile), bsize);
+						BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(currentFileDst), bsize)
+					) {
+						byte[] buffer = new byte[1024];
+						int byteRead;
+						do {
+							if (interrupted) return;
+							byteRead = bis.readNBytes(buffer, 0, buffer.length);
+							status.setCurrentProgress(status.getCurrentProgress() + byteRead);
+							bos.write(buffer, 0, byteRead);
+						} while (byteRead != 0);
+					}
+					setAttributes(currentFile.toPath(), currentFileDst.toPath());
+					status.getFinishedFiles().add(currentFile);
+					status.setCurrentProgress(0);
+					status.setProgress(status.getProgress() + status.getCurrentTotal());
+					status.setCurrentTotal(0);
+				}
+			} catch (Exception e) {
+				exception = e;
+			}
+
+			status.setIsFinished(true);
 		}
 	}
 }
