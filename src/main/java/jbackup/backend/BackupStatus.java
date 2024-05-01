@@ -13,6 +13,7 @@ public class BackupStatus {
 	private long currentTotal = 0;
 	private LinkedList<File> allFiles = new LinkedList<>();
 	private Thread thread;
+	private Exception e;
 
 	void setIsFinished(boolean v){
 		isFinished = v;
@@ -92,5 +93,14 @@ public class BackupStatus {
 
 	Thread getThread() {
 		return thread;
+	}
+
+	void setException(Exception v) {
+		assert v != null;
+		e = v;
+	}
+
+	public Exception getException() {
+		return e;
 	}
 }
