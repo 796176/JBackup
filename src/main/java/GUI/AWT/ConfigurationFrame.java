@@ -75,12 +75,23 @@ public class ConfigurationFrame extends Frame{
 			GuiConstants.DEFAULT_COMPONENT_OFFSET,
 			0
 		);
-		addButtonConstrains.ipadx = 20;
+		addButtonConstrains.ipadx = 110;
+		addButtonConstrains.ipady = 10;
+		Panel editingPanel = new Panel();
+		editingPanel.setLayout(new GridLayout(1, 1, GuiConstants.DEFAULT_COMPONENT_OFFSET, 0));
+		editingPanel.setBackground(new Color(GuiColors.MAIN_WINDOW_BACKGROUND_COLOR));
+		bagLayout.setConstraints(editingPanel, addButtonConstrains);
+		add(editingPanel);
+
 		Button addButton = new Button(GuiStrings.ADD_BUTTON);
 		addButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		addButton.setBackground(new Color(GuiColors.ADD_BUTTON_COLOR));
-		bagLayout.setConstraints(addButton, addButtonConstrains);
-		add(addButton);
+		editingPanel.add(addButton);
+
+		Button saveButton = new Button(GuiStrings.SAVE_BUTTON);
+		saveButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
+		saveButton.setBackground(new Color(GuiColors.ADD_BUTTON_COLOR));
+		editingPanel.add(saveButton);
 
 		GridBagConstraints scriptCheckBoxConstraints = new GridBagConstraints();
 		scriptCheckBoxConstraints.weighty = 1;
