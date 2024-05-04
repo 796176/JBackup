@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainFrame extends Frame {
-	public MainFrame(String title) {
-		super(title);
+	public MainFrame() {
+		super(GuiStrings.APP_NAME);
 		Dimension size = new Dimension(GuiConstants.MAIN_WINDOW_WIDTH, GuiConstants.MAIN_WINDOW_HEIGHT);
 		setSize(size);
 		setResizable(false);
