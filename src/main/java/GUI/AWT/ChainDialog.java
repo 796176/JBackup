@@ -48,6 +48,11 @@ public class ChainDialog extends Dialog {
 		Button sourceButton = new Button(GuiStrings.FILE_DIRECTORY + ": " + GuiStrings.CHOOSE);
 		sourceButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		sourceButton.setForeground(new Color(GuiColors.FONT_COLOR));
+		sourceButton.addActionListener(actionEvent -> {
+			var fileDialog = new FileDialog(this);
+			fileDialog.setDirectory(System.getProperty("user.home"));
+			fileDialog.setVisible(true);
+		});
 		bagLayout.setConstraints(sourceButton, leftElements);
 		add(sourceButton);
 
@@ -55,6 +60,11 @@ public class ChainDialog extends Dialog {
 		Button dstButton = new Button(GuiStrings.DESTINATION + ": " + GuiStrings.CHOOSE);
 		dstButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		dstButton.setForeground(new Color(GuiColors.FONT_COLOR));
+		dstButton.addActionListener(actionEvent -> {
+			var fileDialog = new FileDialog(this);
+			fileDialog.setDirectory(System.getProperty("user.home"));
+			fileDialog.setVisible(true);
+		});
 		bagLayout.setConstraints(dstButton, leftElements);
 		add(dstButton);
 

@@ -86,6 +86,10 @@ public class ConfigurationFrame extends Frame{
 		Button addButton = new Button(GuiStrings.ADD_BUTTON);
 		addButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		addButton.setBackground(new Color(GuiColors.ADD_BUTTON_COLOR));
+		addButton.addActionListener( actionEvent -> {
+			var chainDialog = new ChainDialog(this);
+			chainDialog.setVisible(true);
+		});
 		editingPanel.add(addButton);
 
 		Button saveButton = new Button(GuiStrings.SAVE_BUTTON);

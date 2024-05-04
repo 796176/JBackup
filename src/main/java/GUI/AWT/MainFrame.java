@@ -58,6 +58,10 @@ public class MainFrame extends Frame {
 		Button addButton = new Button(GuiStrings.ADD_BUTTON);
 		addButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		addButton.setBackground(new Color(GuiColors.ADD_BUTTON_COLOR));
+		addButton.addActionListener(actionEvent -> {
+			var configurationFrame = new ConfigurationFrame();
+			configurationFrame.setVisible(true);
+		});
 		bagLayout.setConstraints(addButton, buttonConstraints);
 		add(addButton);
 
