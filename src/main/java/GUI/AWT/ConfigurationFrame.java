@@ -25,9 +25,37 @@ public class ConfigurationFrame extends Frame{
 		GridBagLayout bagLayout = new GridBagLayout();
 		setLayout(bagLayout);
 
+		GridBagConstraints namePanelConstraints = new GridBagConstraints();
+		namePanelConstraints.weighty = 3;
+		namePanelConstraints.weightx = 1;
+		namePanelConstraints.anchor = GridBagConstraints.WEST;
+		namePanelConstraints.insets = new Insets(
+			GuiConstants.DEFAULT_COMPONENT_OFFSET,
+			GuiConstants.DEFAULT_COMPONENT_OFFSET,
+			GuiConstants.DEFAULT_COMPONENT_OFFSET,
+			0
+		);
+		Panel namePanel = new Panel();
+		namePanel.setBackground(new Color(GuiColors.MAIN_WINDOW_BACKGROUND_COLOR));
+		namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		bagLayout.setConstraints(namePanel, namePanelConstraints);
+		add(namePanel);
+
+		Label nameLabel = new Label(GuiStrings.BACKUP_NAME_LABEL);
+		nameLabel.setForeground(new Color(GuiColors.FONT_COLOR));
+		nameLabel.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
+		namePanel.add(nameLabel);
+
+		TextField nameField = new TextField(60);
+		nameField.setBackground(new Color(GuiColors.SCRIPT_AREA_COLOR));
+		nameField.setForeground(new Color(GuiColors.FONT_COLOR));
+		nameField.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
+		namePanel.add(nameField);
+
 		GridBagConstraints panelConstraints = new GridBagConstraints();
 		panelConstraints.weighty = 30;
 		panelConstraints.weightx = 1;
+		panelConstraints.gridy = 1;
 		panelConstraints.fill = GridBagConstraints.BOTH;
 		panelConstraints.insets = new Insets(
 			GuiConstants.LIST_PANEL_OFFSET, GuiConstants.LIST_PANEL_OFFSET, 0, GuiConstants.LIST_PANEL_OFFSET
@@ -39,7 +67,7 @@ public class ConfigurationFrame extends Frame{
 		GridBagConstraints addButtonConstrains = new GridBagConstraints();
 		addButtonConstrains.weighty = 1;
 		addButtonConstrains.weightx = 1;
-		addButtonConstrains.gridy = 1;
+		addButtonConstrains.gridy = 2;
 		addButtonConstrains.anchor = GridBagConstraints.WEST;
 		addButtonConstrains.insets = new Insets(
 			GuiConstants.DEFAULT_COMPONENT_OFFSET,
@@ -57,7 +85,7 @@ public class ConfigurationFrame extends Frame{
 		GridBagConstraints scriptCheckBoxConstraints = new GridBagConstraints();
 		scriptCheckBoxConstraints.weighty = 1;
 		scriptCheckBoxConstraints.weightx = 1;
-		scriptCheckBoxConstraints.gridy = 2;
+		scriptCheckBoxConstraints.gridy = 3;
 		scriptCheckBoxConstraints.anchor = GridBagConstraints.WEST;
 		scriptCheckBoxConstraints.insets = new Insets(
 			GuiConstants.DEFAULT_COMPONENT_OFFSET,
@@ -74,7 +102,7 @@ public class ConfigurationFrame extends Frame{
 		GridBagConstraints scriptAreaConstraints = new GridBagConstraints();
 		scriptAreaConstraints.weighty = 15;
 		scriptAreaConstraints.weightx = 1;
-		scriptAreaConstraints.gridy = 3;
+		scriptAreaConstraints.gridy = 4;
 		scriptAreaConstraints.fill = GridBagConstraints.BOTH;
 		scriptAreaConstraints.insets = new Insets(
 			0,

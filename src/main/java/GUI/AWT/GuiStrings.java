@@ -14,4 +14,5 @@ public class GuiStrings {
 	static public String DESTINATION = "Destination";
 	static public String LAST_EXECUTION_LABEL = "Last execution on";
 	static public String CONFIRMATION_DIALOG_TITLE = "Confirmation";
+	static public String BACKUP_NAME_LABEL = "Backup name";
 }
