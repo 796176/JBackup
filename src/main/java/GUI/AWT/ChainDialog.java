@@ -1,10 +1,17 @@
 package GUI.AWT;
 
+import controller.awt.Buttons;
+import controller.awt.ChainDialogController;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 public class ChainDialog extends Dialog {
+	public Choice choice;
+	public Button sourceButton;
+	public Button dstButton;
+	public TextArea exceptions;
 	public ChainDialog(Frame frame) {
 		super(frame);
 		setSize(GuiConstants.CHAIN_CONFIGURATION_WIDTH, GuiConstants.CHAIN_CONFIGURATION_HEIGHT);
@@ -13,7 +20,9 @@ public class ChainDialog extends Dialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				setVisible(false);
+				ChainDialogController chainDialogController = new ChainDialogController((ChainDialog) e.getWindow());
+				if (chainDialogController.addNewRule())
+					setVisible(false);
 			}
 		});
 
@@ -37,7 +46,7 @@ public class ChainDialog extends Dialog {
 			GuiConstants.INNER_COMPONENT_SPACING
 		);
 
-		Choice choice = new Choice();
+		choice = new Choice();
 		choice.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		choice.setForeground(new Color(GuiColors.FONT_COLOR));
 		choice.add(GuiStrings.FILE_DIRECTORY);
@@ -45,25 +54,29 @@ public class ChainDialog extends Dialog {
 		add(choice);
 
 		leftElements.gridy = 1;
-		Button sourceButton = new Button(GuiStrings.FILE_DIRECTORY + ": " + GuiStrings.CHOOSE);
+		sourceButton = new Button(GuiStrings.FILE_DIRECTORY + ": " + GuiStrings.CHOOSE);
 		sourceButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		sourceButton.setForeground(new Color(GuiColors.FONT_COLOR));
 		sourceButton.addActionListener(actionEvent -> {
 			var fileDialog = new FileDialog(this);
 			fileDialog.setDirectory(System.getProperty("user.home"));
 			fileDialog.setVisible(true);
+			File[] files = fileDialog.getFiles();
+			Buttons.assignDirectory(sourceButton, files);
 		});
 		bagLayout.setConstraints(sourceButton, leftElements);
 		add(sourceButton);
 
 		leftElements.gridy = 2;
-		Button dstButton = new Button(GuiStrings.DESTINATION + ": " + GuiStrings.CHOOSE);
+		dstButton = new Button(GuiStrings.DESTINATION + ": " + GuiStrings.CHOOSE);
 		dstButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		dstButton.setForeground(new Color(GuiColors.FONT_COLOR));
 		dstButton.addActionListener(actionEvent -> {
 			var fileDialog = new FileDialog(this);
 			fileDialog.setDirectory(System.getProperty("user.home"));
 			fileDialog.setVisible(true);
+			File[] files = fileDialog.getFiles();
+			Buttons.assignDirectory(dstButton, files);
 		});
 		bagLayout.setConstraints(dstButton, leftElements);
 		add(dstButton);
@@ -84,7 +97,7 @@ public class ChainDialog extends Dialog {
 		exceptionConstraints.gridy = 1;
 		exceptionConstraints.gridheight = 2;
 		exceptionConstraints.fill = GridBagConstraints.BOTH;
-		TextArea exceptions = new TextArea();
+		exceptions = new TextArea();
 		exceptions.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
 		exceptions.setForeground(new Color(GuiColors.FONT_COLOR));
 		exceptions.setBackground(new Color(GuiColors.MAIN_WINDOW_BACKGROUND_COLOR));

@@ -6,6 +6,7 @@ public class GuiConstants {
 	static public int LIST_PANEL_OFFSET = 25;
 	static public int MAIN_TEXT_AREA_VISIBLE_ROWS = 2;
 	static public int FONT_SIZE = 25;
+	static public int FONT_SIZE_SMALL = 18;
 	static public int INNER_COMPONENT_SPACING = 10;
 	static public int CONFIGURATION_FRAME_WIDTH = 2800;
 	static public int CONFIGURATION_FRAME_HEIGHT = 1900;

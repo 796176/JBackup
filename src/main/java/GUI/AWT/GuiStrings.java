@@ -16,4 +16,5 @@ public class GuiStrings {
 	static public String CONFIRMATION_DIALOG_TITLE = "Confirmation";
 	static public String BACKUP_NAME_LABEL = "Backup name";
 	static public String SAVE_BUTTON = "Save";
+	static public String FILE_DOES_NOT_EXIST = "file doesn't exist";
 }
