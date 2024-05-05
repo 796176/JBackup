@@ -42,4 +42,3 @@ bin/
 .DS_Store
 /gradlew.bat
 /.idea/
-/src/main/java/Main.java
