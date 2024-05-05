@@ -10,7 +10,6 @@ import java.io.File;
 public class ChainDialog extends Dialog {
 	public Choice choice;
 	public Button sourceButton;
-	public Button dstButton;
 	public TextArea exceptions;
 	public ChainDialog(Frame frame) {
 		super(frame);
@@ -66,20 +65,6 @@ public class ChainDialog extends Dialog {
 		});
 		bagLayout.setConstraints(sourceButton, leftElements);
 		add(sourceButton);
-
-		leftElements.gridy = 2;
-		dstButton = new Button(GuiStrings.DESTINATION + ": " + GuiStrings.CHOOSE);
-		dstButton.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
-		dstButton.setForeground(new Color(GuiColors.FONT_COLOR));
-		dstButton.addActionListener(actionEvent -> {
-			var fileDialog = new FileDialog(this);
-			fileDialog.setDirectory(System.getProperty("user.home"));
-			fileDialog.setVisible(true);
-			File[] files = fileDialog.getFiles();
-			Buttons.assignDirectory(dstButton, files);
-		});
-		bagLayout.setConstraints(dstButton, leftElements);
-		add(dstButton);
 
 		GridBagConstraints labelConstraints = new GridBagConstraints();
 		labelConstraints.weightx = 1;

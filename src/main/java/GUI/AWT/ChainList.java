@@ -9,13 +9,13 @@ public class ChainList extends Panel {
 		setLayout(bagLayout);
 
 		ChainItem[] chains = new ChainItem[]{
-			new ChainItem("type", "source", "destination"),
-			new ChainItem("type", "source", "destination"),
-			new ChainItem("type", "source", "destination"),
-			new ChainItem("type", "source", "destination"),
-			new ChainItem("type", "source", "destination"),
-			new ChainItem("type", "source", "destination"),
-			new ChainItem("type", "source", "destination")
+			new ChainItem("type", "source"),
+			new ChainItem("type", "source"),
+			new ChainItem("type", "source"),
+			new ChainItem("type", "source"),
+			new ChainItem("type", "source"),
+			new ChainItem("type", "source"),
+			new ChainItem("type", "source")
 		};
 
 		GridBagConstraints chainConstraints = new GridBagConstraints();

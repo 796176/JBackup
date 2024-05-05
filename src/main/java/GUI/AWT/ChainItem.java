@@ -5,9 +5,8 @@ import java.awt.*;
 public class ChainItem extends Panel {
 	Label type;
 	Label from;
-	Label to;
 	Button remove;
-	public ChainItem(String type, String source, String dst) {
+	public ChainItem(String type, String source) {
 		setBackground(new Color(GuiColors.LIST_ITEM_COLOR));
 		GridBagLayout bagLayout = new GridBagLayout();
 		setLayout(bagLayout);
@@ -30,16 +29,9 @@ public class ChainItem extends Panel {
 		bagLayout.setConstraints(from, labelConstraints);
 		add(from);
 
-		labelConstraints.gridy = 2;
-		to = new Label(dst);
-		to.setFont(new Font(Font.SERIF, Font.PLAIN, GuiConstants.FONT_SIZE));
-		to.setForeground(new Color(GuiColors.FONT_COLOR));
-		bagLayout.setConstraints(to, labelConstraints);
-		add(to);
-
 		GridBagConstraints removeButtonConstraints = new GridBagConstraints();
 		removeButtonConstraints.gridx = 1;
-		removeButtonConstraints.gridheight = 3;
+		removeButtonConstraints.gridheight = 2;
 		removeButtonConstraints.anchor = GridBagConstraints.SOUTHEAST;
 		remove = new Button("-");
 		remove.setBackground(new Color(GuiColors.DELETE_BUTTON_COLOR));
